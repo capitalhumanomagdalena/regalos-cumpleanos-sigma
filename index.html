@@ -3,44 +3,58 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Regalos Sigma</title>
+<title>Regalos Cumpleaños Sigma</title>
 
 <style>
 body{
-font-family:Arial;
-background:#f4f7fb;
-text-align:center;
-padding:40px;
+    font-family:Arial,sans-serif;
+    background:#f5f7fb;
+    text-align:center;
+    margin:0;
+    padding:30px;
 }
 
 h1{
-color:#004b8d;
+    color:#0054A6;
 }
 
-.grid{
-display:grid;
-grid-template-columns:repeat(4,80px);
-gap:15px;
-justify-content:center;
-margin-top:40px;
+input{
+    padding:12px;
+    font-size:18px;
+    width:220px;
+    border-radius:8px;
+    border:1px solid #ccc;
+}
+
+button{
+    margin-top:15px;
+    padding:12px 25px;
+    font-size:18px;
+    border:none;
+    border-radius:8px;
+    background:#d71920;
+    color:white;
+    cursor:pointer;
+}
+
+#regalos{
+    margin-top:30px;
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:15px;
 }
 
 .caja{
-width:80px;
-height:80px;
-background:#e53935;
-border-radius:10px;
-display:flex;
-justify-content:center;
-align-items:center;
-font-size:40px;
-cursor:pointer;
-transition:.3s;
+    background:#d71920;
+    color:white;
+    font-size:50px;
+    padding:25px;
+    border-radius:12px;
+    cursor:pointer;
 }
 
-.caja:hover{
-transform:scale(1.08);
+.oculto{
+    display:none;
 }
 </style>
 
@@ -50,26 +64,18 @@ transform:scale(1.08);
 
 <h1>🎂 Regalos de Cumpleaños Sigma</h1>
 
-<p>Selecciona una caja sorpresa.</p>
+<div id="login">
+<p>Ingresa tu número de empleado</p>
 
-<div class="grid">
+<input id="numero">
 
-<div class="caja">🎁</div>
-<div class="caja">🎁</div>
-<div class="caja">🎁</div>
-<div class="caja">🎁</div>
+<br>
 
-<div class="caja">🎁</div>
-<div class="caja">🎁</div>
-<div class="caja">🎁</div>
-<div class="caja">🎁</div>
-
-<div class="caja">🎁</div>
-<div class="caja">🎁</div>
-<div class="caja">🎁</div>
-<div class="caja">🎁</div>
+<button onclick="entrar()">Entrar</button>
 
 </div>
 
-</body>
-</html>
+<div id="regalos" class="oculto">
+
+<div class="caja">🎁</div>
+<div class="
