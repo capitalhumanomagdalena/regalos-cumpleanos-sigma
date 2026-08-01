@@ -92,21 +92,35 @@ button{
 
 </div>
 
-<script>
+<script type="module">
 
-function entrar(){
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getFirestore } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-let numero=document.getElementById("numero").value;
+const firebaseConfig = {
+  apiKey: "AIzaSyD66UK6V-DIqTWi6gxEwS4gEoWQwtV9Cu0",
+  authDomain: "regalos-cumple-2049e.firebaseapp.com",
+  projectId: "regalos-cumple-2049e",
+  storageBucket: "regalos-cumple-2049e.firebasestorage.app",
+  messagingSenderId: "567466936945",
+  appId: "1:567466936945:web:950dc46eb1ce858644e9d0"
+};
 
-if(numero==""){
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+window.entrar = function () {
+
+  let numero = document.getElementById("numero").value;
+
+  if (numero == "") {
     alert("Escribe tu número de empleado");
     return;
-}
+  }
 
-document.getElementById("login").classList.add("oculto");
-document.getElementById("regalos").classList.remove("oculto");
-
-}
+  document.getElementById("login").classList.add("oculto");
+  document.getElementById("regalos").classList.remove("oculto");
+};
 
 </script>
 
