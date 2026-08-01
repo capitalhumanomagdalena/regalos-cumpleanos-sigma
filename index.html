@@ -124,5 +124,20 @@ window.entrar = function () {
 
 <script type="module">
 
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+import { getFirestore } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyD66UK6V-DIqTWi6gxEwS4gEoWQwtV9Cu0",
+  authDomain: "regalos-cumple-2049e.firebaseapp.com",
+  projectId: "regalos-cumple-2049e",
+  storageBucket: "regalos-cumple-2049e.firebasestorage.app",
+  messagingSenderId: "567466936945",
+  appId: "1:567466936945:web:950dc46eb1ce858644e9d0"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+
 </body>
 </html>
