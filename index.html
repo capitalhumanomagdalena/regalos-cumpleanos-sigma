@@ -1,61 +1,127 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
+
 <meta charset="UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Regalos Cumpleaños Sigma</title>
 
 <style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,Helvetica,sans-serif;
+}
+
 body{
-    font-family:Arial,sans-serif;
-    background:#f5f7fb;
-    text-align:center;
-    margin:0;
-    padding:30px;
+
+background:#f3f6fb;
+
+padding:25px;
+
+text-align:center;
+
 }
 
 h1{
-    color:#0054A6;
+
+color:#0054A6;
+
+margin-bottom:15px;
+
+}
+
+p{
+
+margin-bottom:20px;
+
 }
 
 input{
-    padding:12px;
-    font-size:18px;
-    width:220px;
-    border-radius:8px;
-    border:1px solid #ccc;
+
+width:260px;
+
+padding:12px;
+
+font-size:18px;
+
+border-radius:8px;
+
+border:1px solid #ccc;
+
 }
 
 button{
-    margin-top:15px;
-    padding:12px 25px;
-    font-size:18px;
-    border:none;
-    border-radius:8px;
-    background:#d71920;
-    color:white;
-    cursor:pointer;
+
+background:#d71920;
+
+color:white;
+
+border:none;
+
+padding:12px 30px;
+
+font-size:18px;
+
+border-radius:8px;
+
+margin-top:15px;
+
+cursor:pointer;
+
 }
 
-#regalos{
-    margin-top:30px;
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:15px;
-}
+button:hover{
 
-.caja{
-    background:#d71920;
-    color:white;
-    font-size:50px;
-    padding:25px;
-    border-radius:12px;
-    cursor:pointer;
+background:#b9141b;
+
 }
 
 .oculto{
-    display:none;
+
+display:none;
+
 }
+
+#regalos{
+
+margin-top:30px;
+
+display:grid;
+
+grid-template-columns:repeat(auto-fill,minmax(90px,1fr));
+
+gap:15px;
+
+}
+
+.caja{
+
+background:#d71920;
+
+border-radius:12px;
+
+padding:20px;
+
+cursor:pointer;
+
+font-size:45px;
+
+transition:.30s;
+
+}
+
+.caja:hover{
+
+transform:scale(1.05);
+
+}
+
 </style>
 
 </head>
@@ -64,85 +130,122 @@ button{
 
 <h1>🎂 Regalos de Cumpleaños Sigma</h1>
 
-<div id="login">
-<p>Ingresa tu número de empleado</p>
+<p>
 
-<input id="numero">
+Ingresa tu número de empleado
+
+</p>
+
+<div id="login">
+
+<input
+id="numero"
+placeholder="Número de empleado">
 
 <br>
 
-<button onclick="entrar()">Entrar</button>
+<button id="btnEntrar">
+
+Entrar
+
+</button>
 
 </div>
 
-<div id="regalos" class="oculto">
-
-<div class="caja">🎁</div>
-<div class="caja">🎁</div>
-<div class="caja">🎁</div>
-<div class="caja">🎁</div>
-<div class="caja">🎁</div>
-<div class="caja">🎁</div>
-<div class="caja">🎁</div>
-<div class="caja">🎁</div>
-<div class="caja">🎁</div>
-<div class="caja">🎁</div>
-<div class="caja">🎁</div>
-<div class="caja">🎁</div>
+<div
+id="regalos"
+class="oculto">
 
 </div>
-
-<script type="module">
-
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getFirestore } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyD66UK6V-DIqTWi6gxEwS4gEoWQwtV9Cu0",
-  authDomain: "regalos-cumple-2049e.firebaseapp.com",
-  projectId: "regalos-cumple-2049e",
-  storageBucket: "regalos-cumple-2049e.firebasestorage.app",
-  messagingSenderId: "567466936945",
-  appId: "1:567466936945:web:950dc46eb1ce858644e9d0"
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-
-window.entrar = function () {
-
-  let numero = document.getElementById("numero").value;
-
-  if (numero == "") {
-    alert("Escribe tu número de empleado");
-    return;
-  }
-
-  document.getElementById("login").classList.add("oculto");
-  document.getElementById("regalos").classList.remove("oculto");
-};
-
 <script type="module">
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
-import { getFirestore } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+import {
+getFirestore,
+collection,
+getDocs
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyD66UK6V-DIqTWi6gxEwS4gEoWQwtV9Cu0",
-  authDomain: "regalos-cumple-2049e.firebaseapp.com",
-  projectId: "regalos-cumple-2049e",
-  storageBucket: "regalos-cumple-2049e.firebasestorage.app",
-  messagingSenderId: "567466936945",
-  appId: "1:567466936945:web:950dc46eb1ce858644e9d0"
+
+apiKey: "AIzaSyD66UK6V-DIqTWi6gxEwS4gEoWQwtV9Cu0",
+
+authDomain: "regalos-cumple-2049e.firebaseapp.com",
+
+projectId: "regalos-cumple-2049e",
+
+storageBucket: "regalos-cumple-2049e.firebasestorage.app",
+
+messagingSenderId: "567466936945",
+
+appId: "1:567466936945:web:950dc46eb1ce858644e9d0"
+
 };
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
+
 const db = getFirestore(app);
 
-console.log("Firebase conectado correctamente");
-alert("Hola desde Firebase");
+const btnEntrar=document.getElementById("btnEntrar");
 
+const login=document.getElementById("login");
+
+const regalos=document.getElementById("regalos");
+
+btnEntrar.addEventListener("click",entrar);
+
+async function entrar(){
+
+let numero=document.getElementById("numero").value.trim();
+
+if(numero==""){
+
+alert("Escribe tu número de empleado");
+
+return;
+
+}
+
+login.classList.add("oculto");
+
+regalos.classList.remove("oculto");
+
+await cargarRegalos();
+
+}
+async function cargarRegalos(){
+
+    regalos.innerHTML="";
+
+    const consulta = await getDocs(collection(db,"regalos"));
+
+    consulta.forEach((doc)=>{
+
+        const datos = doc.data();
+
+        const caja = document.createElement("div");
+
+        caja.className="caja";
+
+        caja.innerHTML="🎁";
+
+        caja.onclick=()=>{
+
+            alert(
+                "Caja #"+datos.numero+
+                "\n\nRegalo: "+datos.regalo
+            );
+
+        };
+
+        regalos.appendChild(caja);
+
+    });
+
+}
 </script>
+
 </body>
+
 </html>
