@@ -149,10 +149,10 @@ async function importarExcel() {
         const hoja = workbook.Sheets[workbook.SheetNames[0]];
 
         const empleados = XLSX.utils.sheet_to_json(hoja);
-console.log(empleados[0]);
+
       alert(JSON.stringify(empleados[10]));
        for (const emp of empleados) {
-       alert("Voy a guardar el primer empleado");
+    
 
     await addDoc(collection(db, "empleados"), {
 
