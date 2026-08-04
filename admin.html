@@ -124,7 +124,10 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
-document.getElementById("btnImportar").addEventListener("click", importarExcel);
+document.getElementById("btnImportar").onclick = function () {
+    alert("Botón funcionando");
+    importarExcel();
+};
 
 async function importarExcel() {
 
