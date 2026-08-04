@@ -155,7 +155,7 @@ async function importarExcel() {
 
     await addDoc(collection(db, "empleados"), {
 
-       numero: String(emp["Nº pers."] || "").trim(),
+       numero: String(emp["No. pers."] || "").trim(),
 
         nombre: emp["Nombre del empleado o candidat"] || "",
 
