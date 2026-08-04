@@ -132,6 +132,7 @@ document.getElementById("btnImportar").onclick = function () {
 async function importarExcel() {
 
     const archivo = document.getElementById("archivoExcel").files[0];
+  alert("Archivo leído correctamente");
 
     if (!archivo) {
         alert("Selecciona un archivo de Excel.");
@@ -149,10 +150,12 @@ async function importarExcel() {
         const hoja = workbook.Sheets[workbook.SheetNames[0]];
 
         const empleados = XLSX.utils.sheet_to_json(hoja);
+      alert("Excel convertido");
 
        for (const emp of empleados) {
-
-    console.log(emp);
+       alert("Voy a guardar el primer empleado");
+break;
+       console.log(emp);
 
     await addDoc(collection(db, "empleados"), {
 
