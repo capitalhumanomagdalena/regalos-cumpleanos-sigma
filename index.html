@@ -215,41 +215,31 @@ const regalos=document.getElementById("regalos");
 
 btnEntrar.addEventListener("click",entrar);
 
-async function entrar(){
+async function entrar() {
+    let numero = document.getElementById("numero").value.trim();
+    if (numero == "") {
+        alert("Escribe tu número de empleado");
+        return;
+    }
 
-let numero=document.getElementById("numero").value.trim();
-alert(empleados.length);
-if(numero==""){
+    const empleado = empleados.find(e => e.numero == numero);
+    if (!empleado) {
+        alert("Número de empleado no encontrado");
+        return;
+    }
 
-alert("Escribe tu número de empleado");
-
-return;
-
+    login.classList.add("oculto");
+    regalos.classList.remove("oculto");
+    await cargarRegalos(empleado);
 }
-
-login.classList.add("oculto");
-
-regalos.classList.remove("oculto");
-
-await cargarRegalos();
-
-}
-async function cargarRegalos(){
-
+async function cargarRegalos(empleado){
     regalos.innerHTML="";
-
     const consulta = await getDocs(collection(db,"regalos"));
-
     consulta.forEach((doc)=>{
-
         const datos = doc.data();
-
         const caja = document.createElement("div");
-
         caja.className="caja";
-
         caja.innerHTML="🎁";
-
         caja.onclick=()=>{
 
             alert(
@@ -260,12 +250,8 @@ async function cargarRegalos(){
         };
 
         regalos.appendChild(caja);
-
     });
-
 }
 </script>
-
 </body>
-
 </html>
