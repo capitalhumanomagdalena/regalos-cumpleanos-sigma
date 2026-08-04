@@ -124,7 +124,36 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+document.getElementById("btnImportar").addEventListener("click", importarExcel);
 
+async function importarExcel() {
+
+    const archivo = document.getElementById("archivoExcel").files[0];
+
+    if (!archivo) {
+        alert("Selecciona un archivo de Excel.");
+        return;
+    }
+
+    const reader = new FileReader();
+
+    reader.onload = async function(e){
+
+        const data = new Uint8Array(e.target.result);
+
+        const workbook = XLSX.read(data,{type:"array"});
+
+        const hoja = workbook.Sheets[workbook.SheetNames[0]];
+
+        const empleados = XLSX.utils.sheet_to_json(hoja);
+
+        alert("Se encontraron " + empleados.length + " empleados.");
+
+    };
+
+    reader.readAsArrayBuffer(archivo);
+
+}
 </script>  
 </body>
 
