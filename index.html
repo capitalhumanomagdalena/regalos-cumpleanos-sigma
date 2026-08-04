@@ -186,6 +186,22 @@ appId: "1:567466936945:web:950dc46eb1ce858644e9d0"
 const app = initializeApp(firebaseConfig);
 
 const db = getFirestore(app);
+    async function cargarEmpleados() {
+
+    const snapshot = await getDocs(collection(db, "empleados"));
+
+    const empleados = [];
+
+    snapshot.forEach((doc) => {
+        empleados.push(doc.data());
+    });
+
+    console.log("Empleados cargados:", empleados);
+
+    alert("Se cargaron " + empleados.length + " empleados.");
+
+}
+    cargarEmpleados();
 
 const btnEntrar=document.getElementById("btnEntrar");
 
