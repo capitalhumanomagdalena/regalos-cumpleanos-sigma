@@ -150,6 +150,7 @@ async function importarExcel() {
 
         const empleados = XLSX.utils.sheet_to_json(hoja);
 console.log(empleados[0]);
+      alert(JSON.stringify(empleados[0]));
        for (const emp of empleados) {
        alert("Voy a guardar el primer empleado");
 
