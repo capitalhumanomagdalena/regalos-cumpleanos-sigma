@@ -147,7 +147,29 @@ async function importarExcel() {
 
         const empleados = XLSX.utils.sheet_to_json(hoja);
 
-        alert("Se encontraron " + empleados.length + " empleados.");
+       for (const emp of empleados) {
+
+    await addDoc(collection(db, "empleados"), {
+
+        numero: String(emp["N° pers."] || "").trim(),
+
+        nombre: emp["Nombre del empleado o candidat"] || "",
+
+        puesto: emp["Posición"] || "",
+
+        nacimiento: emp["Fe.nacim."] || "",
+
+        regalo: "",
+
+        caja: "",
+
+        recogido: false
+
+    });
+
+}
+
+alert("Se importaron " + empleados.length + " empleados correctamente.");
 
     };
 
