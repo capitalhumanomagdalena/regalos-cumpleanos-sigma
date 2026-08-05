@@ -93,6 +93,13 @@ border-bottom:1px solid #eee;
 <h2 id="entregados">0</h2>
 </div>
 </div>
+  <div style="margin:20px 0;">
+    <input
+        type="text"
+        id="buscar"
+        placeholder="🔎 Buscar empleado, regalo o caja..."
+        style="width:100%;max-width:450px;padding:12px;font-size:16px;border-radius:8px;border:1px solid #ccc;">
+</div>
 <h2>Pendientes por entregar</h2>
 <table>
 <thead>
@@ -270,9 +277,11 @@ let entregados = 0;
 const tabla = document.getElementById("pendientes");
 tabla.innerHTML = "";
 
+const nombres = {};
+  
 empleados.forEach((doc)=>{
-
 const emp = doc.data();
+  nombres[emp.numero] = emp.nombre;
 
 totalEmp++;
 
@@ -295,14 +304,30 @@ tabla.innerHTML += `
 }
 
 });
-
+const tablaCajas = document.querySelector("#tablaCajas tbody");
+  
 regalos.forEach((doc)=>{
 
-const reg = doc.data();
+    const reg = doc.data();
 
-if(reg.disponible){
-disponibles++;
-}
+    if(reg.disponible){
+        disponibles++;
+    }
+
+    let estado = "🟢 Disponible";
+
+    if(!reg.disponible && reg.elegidoPor!=""){
+        estado = "🟡 Pendiente";
+    }
+
+    tablaCajas.innerHTML += `
+    <tr>
+        <td>${reg.numero}</td>
+        <td>${reg.regalo}</td>
+        <td>${estado}</td>
+        <td>${nombres[reg.elegidoPor] || "-"}</td>
+    </tr>
+    `;
 
 });
 
@@ -312,7 +337,21 @@ document.getElementById("elegidos").innerHTML = elegidos;
 document.getElementById("entregados").innerHTML = entregados;
 
 }
+document.getElementById("buscar").addEventListener("keyup", function(){
 
+    const texto = this.value.toLowerCase();
+
+    document.querySelectorAll("#tablaCajas tbody tr").forEach(fila=>{
+
+        if(fila.innerText.toLowerCase().includes(texto)){
+            fila.style.display="";
+        }else{
+            fila.style.display="none";
+        }
+
+    });
+
+});
 </script>
 
 </body>
