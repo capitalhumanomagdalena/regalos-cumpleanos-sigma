@@ -68,10 +68,19 @@ Desde aquí administrarás los empleados y los regalos.
 
 <button id="btnImportar">
 Importar empleados
+<button id="btnImportarRegalos">
+Importar regalos
 </button>
 
 <br><br>
 
+<input type="file" id="archivoRegalos" accept=".xlsx,.xls">
+document.getElementById("btnImportarRegalos").onclick = function () {
+    importarRegalos();
+};
+  
+</button>
+<br><br>
 <input type="file" id="archivoExcel" accept=".xlsx,.xls">
 
 <p id="estado"></p>
@@ -108,12 +117,12 @@ document.getElementById("btnImportar").onclick = function () {
     importarExcel();
 };
 
-async function importarExcel() {
+async function importarRegalos() {
 
-    const archivo = document.getElementById("archivoExcel").files[0];
+    const archivo = document.getElementById("archivoRegalos").files[0];
 
     if (!archivo) {
-        alert("Selecciona un archivo de Excel.");
+        alert("Selecciona el archivo de regalos.");
         return;
     }
 
@@ -124,23 +133,24 @@ async function importarExcel() {
         const data = new Uint8Array(e.target.result);
         const workbook = XLSX.read(data,{type:"array"});
         const hoja = workbook.Sheets[workbook.SheetNames[0]];
-        const empleados = XLSX.utils.sheet_to_json(hoja);
-        for (const emp of empleados) {
-    
-    await addDoc(collection(db, "empleados"), {
-       numero: String(emp["No. pers."] || "").trim(),
-        nombre: emp["Nombre del empleado o candidat"] || "",
-        puesto: emp["Posición"] || "",
-        nacimiento: emp["Fe.nacim."] || "",
-        sexo: emp["Sexo"] || "",
-        regalo: "",
-        caja: "",
-        recogido: false
-    });
+        const regalos = XLSX.utils.sheet_to_json(hoja);
 
-}
+        for (const reg of regalos){
 
-alert("Se importaron " + empleados.length + " empleados correctamente.");
+            await addDoc(collection(db,"regalos"),{
+
+                numero:Number(reg["NUMERO"]),
+                regalo:reg["REGALO"] || "",
+                categoria:reg["CATEGORIA"] || "",
+                disponible:true,
+                elegidoPor:"",
+                fecha:""
+
+            });
+
+        }
+
+        alert("Se importaron " + regalos.length + " regalos correctamente.");
 
     };
 
