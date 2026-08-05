@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Entrega de Regalos</title>
+
+<style>
+
+body{
+font-family:Arial;
+background:#f5f7fb;
+padding:30px;
+text-align:center;
+}
+
+.card{
+background:white;
+max-width:600px;
+margin:auto;
+padding:30px;
+border-radius:15px;
+box-shadow:0 0 15px rgba(0,0,0,.15);
+}
+
+input{
+width:250px;
+padding:12px;
+font-size:18px;
+}
+
+button{
+margin-top:15px;
+padding:12px 30px;
+font-size:18px;
+background:#d71920;
+color:white;
+border:none;
+border-radius:10px;
+cursor:pointer;
+}
+
+#resultado{
+
+margin-top:30px;
+text-align:left;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="card">
+
+<h1>📦 Entrega de regalos</h1>
+
+<input id="numero" placeholder="Número de empleado">
+
+<br>
+
+<button id="buscar">
+Buscar
+</button>
+
+<div id="resultado"></div>
+
+</div>
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
+import {
+getFirestore,
+collection,
+getDocs,
+updateDoc,
+doc
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+const firebaseConfig = {
+apiKey:"AIzaSyD66UK6V-DIqTWi6gxEwS4gEoWQwtV9Cu0",
+authDomain:"regalos-cumple-2049e.firebaseapp.com",
+projectId:"regalos-cumple-2049e",
+storageBucket:"regalos-cumple-2049e.firebasestorage.app",
+messagingSenderId:"567466936945",
+appId:"1:567466936945:web:950dc46eb1ce858644e9d0"
+};
+
+const app=initializeApp(firebaseConfig);
+const db=getFirestore(app);
+
+document.getElementById("buscar").onclick=buscarEmpleado;
+
+async function buscarEmpleado(){
+
+const numero=document.getElementById("numero").value.trim();
+
+const consulta=await getDocs(collection(db,"empleados"));
+
+let encontrado=null;
+let idDoc=null;
+
+consulta.forEach((d)=>{
+
+const emp=d.data();
+
+if(String(emp.numero)==numero){
+
+encontrado=emp;
+idDoc=d.id;
+
+}
+
+});
+
+const resultado=document.getElementById("resultado");
+
+if(!encontrado){
+
+resultado.innerHTML="<h3>Empleado no encontrado.</h3>";
+
+return;
+
+}
+
+resultado.innerHTML=`
+
+<h3>${encontrado.nombre}</h3>
+
+<p><b>Puesto:</b> ${encontrado.puesto}</p>
+
+<p><b>Regalo:</b> ${encontrado.regalo}</p>
+
+<p><b>Caja:</b> ${encontrado.caja}</p>
+
+<p><b>Entregado:</b> ${encontrado.recogido ? "Sí" : "No"}</p>
+
+<button id="entregar">Marcar como entregado</button>
+
+`;
+
+document.getElementById("entregar").onclick=async()=>{
+
+await updateDoc(doc(db,"empleados",idDoc),{
+
+recogido:true
+
+});
+
+alert("Regalo entregado correctamente.");
+
+buscarEmpleado();
+
+};
+
+}
+
+</script>
+  <body>
+  <html>
+  
