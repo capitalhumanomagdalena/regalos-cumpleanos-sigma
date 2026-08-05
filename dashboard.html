@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Dashboard - Regalos Sigma</title>
+
+<style>
+
+body{
+font-family:Arial,Helvetica,sans-serif;
+background:#f5f7fb;
+margin:0;
+padding:25px;
+}
+
+h1{
+color:#0054A6;
+text-align:center;
+margin-bottom:30px;
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:20px;
+margin-bottom:35px;
+}
+
+.card{
+background:white;
+border-radius:15px;
+padding:25px;
+text-align:center;
+box-shadow:0 3px 12px rgba(0,0,0,.12);
+}
+
+.card h2{
+font-size:40px;
+margin:10px 0;
+color:#d71920;
+}
+
+.card p{
+font-size:18px;
+margin:0;
+font-weight:bold;
+}
+
+table{
+width:100%;
+background:white;
+border-collapse:collapse;
+border-radius:12px;
+overflow:hidden;
+box-shadow:0 3px 12px rgba(0,0,0,.12);
+margin-top:20px;
+}
+
+th{
+background:#0054A6;
+color:white;
+padding:12px;
+}
+
+td{
+padding:10px;
+border-bottom:1px solid #eee;
+}
+</style>
+</head>
+<body>
+<h1>📊 Dashboard Regalos Sigma</h1>
+<div class="grid">
+
+<div class="card">
+<p>👥 Empleados</p>
+<h2 id="emp">0</h2>
+</div>
+
+<div class="card">
+<p>🎁 Regalos disponibles</p>
+<h2 id="disp">0</h2>
+</div>
+<div class="card">
+<p>🎂 Regalos elegidos</p>
+<h2 id="elegidos">0</h2>
+</div>
+<div class="card">
+<p>✅ Entregados</p>
+<h2 id="entregados">0</h2>
+</div>
+</div>
+<h2>Pendientes por entregar</h2>
+<table>
+<thead>
+<tr>
+<th>Empleado</th>
+<th>Regalo</th>
+<th>Caja</th>
+</tr>
+</thead>
+<tbody id="pendientes">
+</tbody>
+</table>
+
+  <!DOCTYPE html>
+<html lang="es">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Dashboard - Regalos Sigma</title>
+
+<style>
+
+body{
+font-family:Arial,Helvetica,sans-serif;
+background:#f5f7fb;
+margin:0;
+padding:25px;
+}
+
+h1{
+color:#0054A6;
+text-align:center;
+margin-bottom:30px;
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:20px;
+margin-bottom:35px;
+}
+
+.card{
+background:white;
+border-radius:15px;
+padding:25px;
+text-align:center;
+box-shadow:0 3px 12px rgba(0,0,0,.12);
+}
+
+.card h2{
+font-size:40px;
+margin:10px 0;
+color:#d71920;
+}
+
+.card p{
+font-size:18px;
+margin:0;
+font-weight:bold;
+}
+
+table{
+width:100%;
+background:white;
+border-collapse:collapse;
+border-radius:12px;
+overflow:hidden;
+box-shadow:0 3px 12px rgba(0,0,0,.12);
+margin-top:20px;
+}
+
+th{
+background:#0054A6;
+color:white;
+padding:12px;
+}
+
+td{
+padding:10px;
+border-bottom:1px solid #eee;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>📊 Dashboard Regalos Sigma</h1>
+
+<div class="grid">
+
+<div class="card">
+<p>👥 Empleados</p>
+<h2 id="emp">0</h2>
+</div>
+
+<div class="card">
+<p>🎁 Regalos disponibles</p>
+<h2 id="disp">0</h2>
+</div>
+
+<div class="card">
+<p>🎂 Regalos elegidos</p>
+<h2 id="elegidos">0</h2>
+</div>
+
+<div class="card">
+<p>✅ Entregados</p>
+<h2 id="entregados">0</h2>
+</div>
+
+</div>
+
+<h2>Pendientes por entregar</h2>
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Empleado</th>
+
+<th>Regalo</th>
+
+<th>Caja</th>
+
+</tr>
+
+</thead>
+
+<tbody id="pendientes">
+
+</tbody>
+
+</table>
