@@ -125,10 +125,7 @@ async function importarExcel() {
         const workbook = XLSX.read(data,{type:"array"});
         const hoja = workbook.Sheets[workbook.SheetNames[0]];
         const empleados = XLSX.utils.sheet_to_json(hoja);
-      alert(Object.keys(empleados[0]).join("\n"));
-      return;
-      alert(JSON.stringify(empleados[10]));
-       for (const emp of empleados) {
+        for (const emp of empleados) {
     
     await addDoc(collection(db, "empleados"), {
        numero: String(emp["No. pers."] || "").trim(),
