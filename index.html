@@ -117,9 +117,12 @@ async function cargarEmpleados() {
 
     const snapshot = await getDocs(collection(db, "empleados"));
     empleados = [];
-    snapshot.forEach((doc) => {
-        empleados.push(doc.data());
+    snapshot.forEach((documento) => {
+    empleados.push({
+        id: documento.id,
+        ...documento.data()
     });
+});
     alert("Se cargaron " + empleados.length + " empleados.");
     console.log(empleados);
 }
@@ -181,7 +184,6 @@ async function cargarRegalos(empleado){
             await updateDoc(doc(db,"regalos",documento.id),{
                 disponible:false,
                 elegidoPor:empleado.numero
-
             });
 
             const empleadosDB=await getDocs(collection(db,"empleados"));
@@ -189,11 +191,11 @@ async function cargarRegalos(empleado){
                 const emp=empDoc.data();
                 if(String(emp.numero)===String(empleado.numero)){
                     await updateDoc(doc(db,"empleados",empDoc.id),{
-                        regalo:datos.regalo,
-                        caja:datos.numero
-                    });
+    regalo: datos.regalo,
+    caja: datos.numero,
+    recogido: false
+});
                 }
-
             });
 
             alert("¡Tu regalo quedó registrado!\n\n"+datos.regalo);
