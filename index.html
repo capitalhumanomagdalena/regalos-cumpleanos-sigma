@@ -198,7 +198,9 @@ async function cargarRegalos(empleado){
 
             alert("¡Tu regalo quedó registrado!\n\n"+datos.regalo);
 
-            location.reload();
+            login.classList.add("oculto");
+regalos.innerHTML = "<h2>✅ Ya elegiste tu regalo</h2><p>" + empleado.regalo + "</p>";
+regalos.classList.remove("oculto");
 
         };
 
