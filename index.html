@@ -2,185 +2,110 @@
 <html lang="es">
 
 <head>
-
 <meta charset="UTF-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Regalos Cumpleaños Sigma</title>
-
 <style>
-
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
 font-family:Arial,Helvetica,sans-serif;
 }
-
 body{
-
 background:#f3f6fb;
-
 padding:25px;
-
 text-align:center;
-
 }
-
 h1{
-
 color:#0054A6;
-
 margin-bottom:15px;
-
 }
-
 p{
-
 margin-bottom:20px;
-
 }
-
 input{
-
 width:260px;
-
 padding:12px;
-
 font-size:18px;
-
 border-radius:8px;
-
 border:1px solid #ccc;
-
 }
-
 button{
-
 background:#d71920;
-
 color:white;
-
 border:none;
-
 padding:12px 30px;
-
 font-size:18px;
-
 border-radius:8px;
-
 margin-top:15px;
-
 cursor:pointer;
-
 }
 
 button:hover{
-
 background:#b9141b;
-
 }
 
 .oculto{
-
 display:none;
-
 }
 
 #regalos{
-
 margin-top:30px;
-
 display:grid;
-
 grid-template-columns:repeat(auto-fill,minmax(90px,1fr));
-
 gap:15px;
-
 }
 
 .caja{
-
 background:#d71920;
-
 border-radius:12px;
-
 padding:20px;
-
 cursor:pointer;
-
 font-size:45px;
-
 transition:.30s;
-
 }
 
 .caja:hover{
-
 transform:scale(1.05);
-
 }
 
 </style>
-
 </head>
-
 <body>
-
 <h1>🎂 Regalos de Cumpleaños Sigma</h1>
-
 <p>
 
 Ingresa tu número de empleado
-
 </p>
-
 <div id="login">
-
 <input
 id="numero"
 placeholder="Número de empleado">
-
 <br>
-
 <button id="btnEntrar">
 
 Entrar
-
 </button>
-
 </div>
-
 <div
 id="regalos"
 class="oculto">
-
 </div>
 <script type="module">
-
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
-
 import {
 getFirestore,
 collection,
 getDocs
 } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
-
 const firebaseConfig = {
-
 apiKey: "AIzaSyD66UK6V-DIqTWi6gxEwS4gEoWQwtV9Cu0",
-
 authDomain: "regalos-cumple-2049e.firebaseapp.com",
-
 projectId: "regalos-cumple-2049e",
-
 storageBucket: "regalos-cumple-2049e.firebasestorage.app",
-
 messagingSenderId: "567466936945",
-
 appId: "1:567466936945:web:950dc46eb1ce858644e9d0"
-
 };
 
 const app = initializeApp(firebaseConfig);
@@ -189,32 +114,20 @@ let empleados = [];
 async function cargarEmpleados() {
 
     const snapshot = await getDocs(collection(db, "empleados"));
-
     empleados = [];
-
     snapshot.forEach((doc) => {
         empleados.push(doc.data());
     });
-
     alert("Se cargaron " + empleados.length + " empleados.");
-
     console.log(empleados);
-
 }
 
 cargarEmpleados();
-
-}
     cargarEmpleados();
-
 const btnEntrar=document.getElementById("btnEntrar");
-
 const login=document.getElementById("login");
-
 const regalos=document.getElementById("regalos");
-
 btnEntrar.addEventListener("click",entrar);
-
 async function entrar() {
     let numero = document.getElementById("numero").value.trim();
     if (numero == "") {
@@ -234,19 +147,20 @@ async function entrar() {
 }
 async function cargarRegalos(empleado){
     regalos.innerHTML="";
-    const consulta = await getDocs(collection(db,"regalos"));
-    consulta.forEach((doc)=>{
-        const datos = doc.data();
-        const caja = document.createElement("div");
-        caja.className="caja";
-        caja.innerHTML="🎁";
-        caja.onclick=()=>{
-
+    const consulta = await getDocs(collection(db, "regalos"));
+   
+    consulta.forEach((doc) => {
+    const datos = doc.data();
+    if (!datos.disponible) return;
+    if (datos.categoria !== empleado.sexo) return;
+    const caja = document.createElement("div");
+    caja.className = "caja";
+    caja.innerHTML = "🎁";
+    
             alert(
                 "Caja #"+datos.numero+
                 "\n\nRegalo: "+datos.regalo
             );
-
         };
 
         regalos.appendChild(caja);
