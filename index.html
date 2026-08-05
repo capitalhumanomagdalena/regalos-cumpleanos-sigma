@@ -143,7 +143,13 @@ async function entrar() {
     }
 
     alert("Encontrado: " + empleado.nombre);
+if(empleado.regalo!=""){
 
+    alert("Ya elegiste tu regalo:\n\n"+empleado.regalo);
+
+    return;
+
+}
     login.classList.add("oculto");
     regalos.classList.remove("oculto");
     await cargarRegalos(empleado);
