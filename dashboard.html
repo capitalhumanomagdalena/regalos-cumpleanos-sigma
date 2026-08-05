@@ -233,3 +233,87 @@ border-bottom:1px solid #eee;
 </tbody>
 
 </table>
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
+import {
+getFirestore,
+collection,
+getDocs
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+const firebaseConfig = {
+apiKey:"AIzaSyD66UK6V-DIqTWi6gxEwS4gEoWQwtV9Cu0",
+authDomain:"regalos-cumple-2049e.firebaseapp.com",
+projectId:"regalos-cumple-2049e",
+storageBucket:"regalos-cumple-2049e.firebasestorage.app",
+messagingSenderId:"567466936945",
+appId:"1:567466936945:web:950dc46eb1ce858644e9d0"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+cargarDashboard();
+
+async function cargarDashboard(){
+
+const empleados = await getDocs(collection(db,"empleados"));
+const regalos = await getDocs(collection(db,"regalos"));
+
+let totalEmp = 0;
+let disponibles = 0;
+let elegidos = 0;
+let entregados = 0;
+
+const tabla = document.getElementById("pendientes");
+tabla.innerHTML = "";
+
+empleados.forEach((doc)=>{
+
+const emp = doc.data();
+
+totalEmp++;
+
+if(emp.regalo){
+elegidos++;
+}
+
+if(emp.recogido){
+entregados++;
+}else if(emp.regalo){
+
+tabla.innerHTML += `
+<tr>
+<td>${emp.nombre}</td>
+<td>${emp.regalo}</td>
+<td>${emp.caja}</td>
+</tr>
+`;
+
+}
+
+});
+
+regalos.forEach((doc)=>{
+
+const reg = doc.data();
+
+if(reg.disponible){
+disponibles++;
+}
+
+});
+
+document.getElementById("emp").innerHTML = totalEmp;
+document.getElementById("disp").innerHTML = disponibles;
+document.getElementById("elegidos").innerHTML = elegidos;
+document.getElementById("entregados").innerHTML = entregados;
+
+}
+
+</script>
+
+</body>
+</html>
