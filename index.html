@@ -130,16 +130,17 @@ const regalos=document.getElementById("regalos");
 btnEntrar.addEventListener("click",entrar);
 async function entrar() {
     let numero = document.getElementById("numero").value.trim();
-    if (numero == "") {
-        alert("Escribe tu número de empleado");
+
+    alert("Empleados cargados: " + empleados.length);
+
+    const empleado = empleados.find(e => String(e.numero).trim() === numero);
+
+    if (!empleado) {
+        alert("No encontrado");
         return;
     }
 
-    const empleado = empleados.find(e => e.numero == numero);
-    if (!empleado) {
-        alert("Número de empleado no encontrado");
-        return;
-    }
+    alert("Encontrado: " + empleado.nombre);
 
     login.classList.add("oculto");
     regalos.classList.remove("oculto");
