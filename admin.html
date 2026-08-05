@@ -24,59 +24,38 @@ text-align:center;
 }
 
 h1{
-
 color:#0054A6;
-
 }
 
 .card{
-
 background:white;
-
 max-width:600px;
-
 margin:auto;
-
 padding:30px;
-
 border-radius:15px;
-
 box-shadow:0 0 15px rgba(0,0,0,.15);
 
 }
 
 button{
-
 background:#d71920;
-
 color:white;
-
 border:none;
-
 padding:14px 30px;
-
 font-size:18px;
-
 border-radius:10px;
-
 cursor:pointer;
-
 margin-top:20px;
-
 }
 
 button:hover{
-
 background:#b8141b;
 
 }
 
 </style>
-
 </head>
-
 <body>
-
 <div class="card">
 
 <h1>⚙️ Panel de Administración</h1>
@@ -143,33 +122,21 @@ async function importarExcel() {
     reader.onload = async function(e){
 
         const data = new Uint8Array(e.target.result);
-
         const workbook = XLSX.read(data,{type:"array"});
-
         const hoja = workbook.Sheets[workbook.SheetNames[0]];
-
         const empleados = XLSX.utils.sheet_to_json(hoja);
-
       alert(JSON.stringify(empleados[10]));
        for (const emp of empleados) {
     
-
     await addDoc(collection(db, "empleados"), {
-
        numero: String(emp["No. pers."] || "").trim(),
-
         nombre: emp["Nombre del empleado o candidat"] || "",
-
         puesto: emp["Posición"] || "",
-
         nacimiento: emp["Fe.nacim."] || "",
-
+        sexo: emp["Sexo"] || "",
         regalo: "",
-
         caja: "",
-
         recogido: false
-
     });
 
 }
