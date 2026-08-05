@@ -123,7 +123,7 @@ async function cargarEmpleados() {
 }
 
 cargarEmpleados();
-    cargarEmpleados();
+
 const btnEntrar=document.getElementById("btnEntrar");
 const login=document.getElementById("login");
 const regalos=document.getElementById("regalos");
@@ -155,16 +155,17 @@ async function cargarRegalos(empleado){
     if (!datos.disponible) return;
     if (datos.categoria !== empleado.sexo) return;
     const caja = document.createElement("div");
-    caja.className = "caja";
-    caja.innerHTML = "🎁";
-    
-            alert(
-                "Caja #"+datos.numero+
-                "\n\nRegalo: "+datos.regalo
-            );
-        };
+caja.className = "caja";
+caja.innerHTML = "🎁";
 
-        regalos.appendChild(caja);
+caja.onclick = () => {
+    alert(
+        "Caja #" + datos.numero +
+        "\n\nRegalo: " + datos.regalo
+    );
+};
+
+regalos.appendChild(caja);
     });
 }
 </script>
