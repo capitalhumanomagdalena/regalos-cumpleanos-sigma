@@ -130,7 +130,7 @@ collection,
 getDocs
 } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
-const firebaseConfig = {
+ firebaseConfig = {
 apiKey:"AIzaSyD66UK6V-DIqTWi6gxEwS4gEoWQwtV9Cu0",
 authDomain:"regalos-cumple-2049e.firebaseapp.com",
 projectId:"regalos-cumple-2049e",
@@ -139,15 +139,15 @@ messagingSenderId:"567466936945",
 appId:"1:567466936945:web:950dc46eb1ce858644e9d0"
 };
 
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+ app = initializeApp(firebaseConfig);
+ db = getFirestore(app);
 
 cargarDashboard();
 
 async function cargarDashboard(){
 
-const empleados = await getDocs(collection(db,"empleados"));
-const regalos = await getDocs(collection(db,"regalos"));
+ empleados = await getDocs(collection(db,"empleados"));
+ regalos = await getDocs(collection(db,"regalos"));
 
 let totalEmp = 0;
 let disponibles = 0;
