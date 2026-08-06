@@ -113,6 +113,12 @@ border-bottom:1px solid #eee;
 </tbody>
 </table>
 
+  <br><br>
+
+<button id="btnDescargar">
+📥 Descargar reporte Excel
+</button>
+  
   <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -240,6 +246,7 @@ border-bottom:1px solid #eee;
 </tbody>
 
 </table>
+  <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
 <script type="module">
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
@@ -335,14 +342,38 @@ document.getElementById("emp").innerHTML = totalEmp;
 document.getElementById("disp").innerHTML = disponibles;
 document.getElementById("elegidos").innerHTML = elegidos;
 document.getElementById("entregados").innerHTML = entregados;
+  document.getElementById("descargarExcel").onclick = descargarExcel;
 
-}
-document.getElementById("buscar").addEventListener("keyup", function(){
+function descargarExcel(){
 
-    const texto = this.value.toLowerCase();
+    const datos = [];
 
     document.querySelectorAll("#tablaCajas tbody tr").forEach(fila=>{
 
+        const celdas = fila.querySelectorAll("td");
+
+        datos.push({
+            Caja: celdas[0].innerText,
+            Regalo: celdas[1].innerText,
+            Estado: celdas[2].innerText,
+            Empleado: celdas[3].innerText
+        });
+
+    });
+
+    const wb = XLSX.utils.book_new();
+    const ws = XLSX.utils.json_to_sheet(datos);
+
+    XLSX.utils.book_append_sheet(wb, ws, "Regalos");
+
+    XLSX.writeFile(wb, "Reporte_Regalos.xlsx");
+
+}
+
+}
+document.getElementById("buscar").addEventListener("keyup", function(){
+    const texto = this.value.toLowerCase();
+    document.querySelectorAll("#tablaCajas tbody tr").forEach(fila=>{
         if(fila.innerText.toLowerCase().includes(texto)){
             fila.style.display="";
         }else{
